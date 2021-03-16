@@ -7,13 +7,14 @@ username = os.environ.get('username')
 password = os.environ.get('password')
 def send_msg(message):
     webhook = 'https://oapi.dingtalk.com/robot/send?access_token=475d9ba22c07da90d15282a6f78e92e4c0d9dd9d9e1e53f9aa58b3261e6c84ba'
-    xiaoding = DingtalkChatbot(webhook)
-    message += "marscom:"
-    xiaoding.send_text(msg=message,is_at_all=True)
-    xiaoding.send_markdown(title='marscom', text='#### 广州天气\n'
+    secret = 'SECaa347ab8e7b5c6bcc4f9c37c7b8967197273af6e74995596cb46674eac599c2f'
+    xiaoding = DingtalkChatbot(webhook,secret=secret)
+    #message += "marscom:"
+    xiaoding.send_text(msg=message,is_at_all=False)
+    xiaoding.send_markdown(title='fdfd', text='#### 广州天气\n'
                            '> 9度，西北风1级，空气良89，相对温度73%\n\n'
                            '> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) \n',
-                           is_at_all=True)
+                           is_at_all=False)
 
 def pusher(*args):
     msg = args[0]
