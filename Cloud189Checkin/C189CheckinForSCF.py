@@ -8,6 +8,7 @@ password = os.environ.get('password')
 def send_msg(message):
     webhook = 'https://oapi.dingtalk.com/robot/send?access_token=475d9ba22c07da90d15282a6f78e92e4c0d9dd9d9e1e53f9aa58b3261e6c84ba'
     xiaoding = DingtalkChatbot(webhook)
+    message += "marscom:"
     xiaoding.send_text(msg=message,is_at_all=False)
 
 def pusher(*args):
