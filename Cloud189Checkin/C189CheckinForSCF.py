@@ -10,7 +10,7 @@ def send_msg(message):
     xiaoding = DingtalkChatbot(webhook)
     message += "marscom:"
     xiaoding.send_text(msg=message,is_at_all=True)
-    xiaoding.send_markdown(title='氧气文字', text='#### 广州天气\n'
+    xiaoding.send_markdown(title='marscom', text='#### 广州天气\n'
                            '> 9度，西北风1级，空气良89，相对温度73%\n\n'
                            '> ![美景](http://www.sinaimg.cn/dy/slidenews/5_img/2013_28/453_28488_469248.jpg)\n'
                            '> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) \n',
