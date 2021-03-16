@@ -2,9 +2,13 @@
 
 import requests, time, re, rsa, json, base64, os
 from urllib import parse
-
+from dingtalkchatbot.chatbot import DingtalkChatbot
 username = os.environ.get('username')
 password = os.environ.get('password')
+def send_msg(message):
+    webhook = 'https://oapi.dingtalk.com/robot/send?access_token=475d9ba22c07da90d15282a6f78e92e4c0d9dd9d9e1e53f9aa58b3261e6c84ba'
+    xiaoding = DingtalkChatbot(webhook)
+    xiaoding.send_text(msg=message,is_at_all=False)
 
 def pusher(*args):
     msg = args[0]
@@ -241,5 +245,6 @@ def C189Checkin(*args):
 if __name__ == "__main__":
     if username and password:
         print("----------天翼云盘开始尝试签到----------")
+        send_msg("----------天翼云盘开始尝试签到----------")
         C189Checkin()
         print("----------天翼云盘签到执行完毕----------")
