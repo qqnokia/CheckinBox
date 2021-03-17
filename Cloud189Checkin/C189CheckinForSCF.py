@@ -145,6 +145,7 @@ def main(username:str, password:str):
         print("天翼云签到出错：", repr(e))
         pusher("天翼云签到出错", repr(e))
         msg += "天翼云签到出错："+repr(e)
+    pusher("天翼云签到",f"{msg}")
     return msg + "\n"
 
 BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
@@ -250,6 +251,6 @@ if __name__ == "__main__":
     if username and password:
         print("----------L天翼云盘开始尝试签到----------")
         #send_msg("----------天翼云盘开始尝试签到----------")
-        pusher("天翼云盘签到","testestestsete")
-        #C189Checkin()
+        #pusher("天翼云盘签到","testestestsete")
+        C189Checkin()
         print("----------Y天翼云盘签到执行完毕----------")
