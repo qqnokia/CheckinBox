@@ -22,13 +22,9 @@ def pusher(*args):
     dingding_secret = os.environ.get('dingding_secret') # dingding rebot webhook secret
     if dingding_token:
         sendurl = f"https://oapi.dingtalk.com/robot/send?access_token={dingding_token}"
-        print(sendurl)
-        print(dingding_secret)
         ding_bot = DingtalkChatbot(sendurl,secret=dingding_secret)
-        ding_bot.send_text(msg="test debug",is_at_all=False)
-        ding_bot.send_text(msg=msg+'\n'+othermsg,is_at_all=False)
-        ding_bot.send_markdown(title=msg,text=f'{msg}\n'
-                                f'{othermsg}\n',
+        ding_bot.send_markdown(title=msg,text=f'#### {msg}\n'
+                                f'> {othermsg}\n\n',
                                 is_at_all=False)
     if SCKEY:
         sendurl = f"https://sc.ftqq.com/{SCKEY}.send"
@@ -255,5 +251,5 @@ if __name__ == "__main__":
         print("----------L天翼云盘开始尝试签到----------")
         #send_msg("----------天翼云盘开始尝试签到----------")
         pusher("天翼云盘签到","testestestsete")
-        C189Checkin()
+        #C189Checkin()
         print("----------Y天翼云盘签到执行完毕----------")
