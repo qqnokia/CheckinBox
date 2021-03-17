@@ -22,7 +22,10 @@ def pusher(*args):
     dingding_secret = os.environ.get('dingding_secret') # dingding rebot webhook secret
     if dingding_token:
         sendurl = f"https://oapi.dingtalk.com/robot/send?access_token={dingding_token}"
+        print(sendurl)
+        print(dingding_secret)
         ding_bot = DingtalkChatbot(sendurl,secret=dingding_secret)
+        ding_bot.send_text(msg="test debug",is_at_all=False)
         ding_bot.send_text(msg=msg+'\n'+othermsg,is_at_all=False)
         ding_bot.send_markdown(title=msg,text=f'{msg}\n'
                                 f'{othermsg}\n',
