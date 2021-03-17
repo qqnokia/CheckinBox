@@ -23,6 +23,7 @@ def pusher(*args):
     if dingding_token:
         sendurl = f"https://oapi.dingtalk.com/robot/send?access_token={dingding_token}"
         ding_bot = DingtalkChatbot(sendurl,secret=dingding_secret)
+        ding_bot.send_text(msg=msg+'\n'+othermsg,is_at_all=False)
         ding_bot.send_markdown(title=msg,text=f'{msg}\n'
                                 f'{othermsg}\n',
                                 is_at_all=False)
