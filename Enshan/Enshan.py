@@ -1,6 +1,6 @@
 import requests, json, time, os
 from lxml import etree
-
+from dingtalkchatbot.chatbot import DingtalkChatbot
 cookie = os.environ.get("cookie_enshan")
 
 def pusher(*args):
@@ -15,6 +15,15 @@ def pusher(*args):
     Smode = os.environ.get('Smode') # send, group, psend, pgroup, wx, tg, ww, ding(no send email)
     pushplus_token = os.environ.get('pushplus_token') # http://pushplus.hxtrip.com/
     pushplus_topic = os.environ.get('pushplus_topic') # pushplus一对多推送需要的"群组编码"，一对一推送不用管
+    dingding_token = os.environ.get('dingding_token') # dingding robot webhook token
+    dingding_secret = os.environ.get('dingding_secret') # dingding rebot webhook secret
+    if dingding_token:
+        sendurl = f"https://oapi.dingtalk.com/robot/send?access_token={dingding_token}"
+        ding_bot = DingtalkChatbot(sendurl,secret=dingding_secret)
+        ding_bot.send_markdown(title=msg,text=f'#### {msg}\n'
+                                f'> {othermsg}\n\n',
+                                is_at_all=False)      
+    
     if SCKEY:
         sendurl = f"https://sc.ftqq.com/{SCKEY}.send"
         data = {
@@ -85,12 +94,14 @@ def run(*arg):
             h = etree.HTML(r.text)
             data = h.xpath('//tr/td[6]/text()')
             msg += f'签到成功或今日已签到，最后签到时间：{data[0]}'
+            #pusher("恩山签到 ", r.text)
         else:
             msg += '签到失败，可能是cookie失效了！'
-            pusher(msg)
+            #pusher("恩山签到 ", r.text)
     except:
         msg = '无法正常连接到网站，请尝试改变网络环境，试下本地能不能跑脚本，或者换几个时间点执行脚本'
         print(msg)
+    pusher("恩山签到 ", f"{msg}")
     return msg + '\n'
 
 def main(*arg):
