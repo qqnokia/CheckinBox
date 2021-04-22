@@ -1,4 +1,5 @@
 import requests, json, time, os, re
+from dingtalkchatbot.chatbot import DingtalkChatbot
 
 cookie = os.environ.get("cookie_v2ex")
 
@@ -14,6 +15,14 @@ def pusher(*args):
     Smode = os.environ.get('Smode') # send, group, psend, pgroup, wx, tg, ww, ding(no send email)
     pushplus_token = os.environ.get('pushplus_token') # http://pushplus.hxtrip.com/
     pushplus_topic = os.environ.get('pushplus_topic') # pushplus一对多推送需要的"群组编码"，一对一推送不用管
+    dingding_token = os.environ.get('dingding_token') # dingding robot webhook token
+    dingding_secret = os.environ.get('dingding_secret') # dingding rebot webhook secret
+    if dingding_token:
+        sendurl = f"https://oapi.dingtalk.com/robot/send?access_token={dingding_token}"
+        ding_bot = DingtalkChatbot(sendurl,secret=dingding_secret)
+        ding_bot.send_markdown(title=msg,text=f'#### {msg}\n'
+                                f'> {othermsg}\n\n',
+                                is_at_all=False)    
     if SCKEY:
         sendurl = f"https://sc.ftqq.com/{SCKEY}.send"
         data = {
@@ -82,6 +91,7 @@ def run(*arg):
         return msg
     elif '每日登录奖励已领取' in r.text:
         msg = '今天已经签到过啦！！！\n'
+        pusher("V2EX 今天已经签到过啦！！！", r.text)
         return msg
     once = re.compile(r'once\=\d+').search(r.text)
     # print(once[0])
@@ -98,6 +108,7 @@ def run(*arg):
         r = s.get(check_url, headers=headers, verify=False, timeout=120)
         data = re.compile(r'\d+?\s的每日登录奖励\s\d+\s铜币').search(r.text)
         msg += data[0] + '\n'
+        pusher("V2EX签到",f"{msg}")
     else:
         msg = '签到失败！\n'
         pusher("V2EX  签到失败！！！", sign.text)
