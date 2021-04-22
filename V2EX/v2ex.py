@@ -111,7 +111,7 @@ def run(*arg):
         pusher("V2EX签到",f"{msg}")
     else:
         msg = '签到失败！\n'
-        pusher("V2EX  签到失败！！！", sign.text)
+        pusher("V2EX  签到失败！！！", r.text)
     return msg
 
 def main(*arg):
